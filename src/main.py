@@ -6,12 +6,12 @@ from src.utils.watcher import watch_files
 from src.utils.configure import app as configure, Config
 
 app = typer.Typer(rich_markup_mode="rich", add_completion=False)
-app.add_typer(configure, name="configure", help="Configure PyTest-Watcher")
+app.add_typer(configure, name="configure", help="Configure Py-Test-Watch")
 
 
 def version_callback(value: bool):
     if value:
-        typer.echo(f"Py-Watcher Version: {typer.style('0.2.1', fg='blue')}")
+        typer.echo(f"Py-Test-Watch Version: {typer.style('0.2.1', fg='blue')}")
         raise typer.Exit()
 
 
@@ -26,7 +26,7 @@ def main(
     ),
 ):
     """
-    PyTest-Watcher is a CLI tool that watches for changes in your code and runs pytest on the changed files.
+    Py-Test-Watch is a CLI tool that watches for changes in your code and runs pytest on the changed files.
 
     \b
     [underline magenta]Recommended:[/underline magenta] Use the configure command to create a config file that will be used for testing.
@@ -68,17 +68,17 @@ def test(
 
     [blue]
     Example:
-        pytest-watcher test tests/
+        Py-Test-Watch test tests/
     [/blue]
 
-    To pass a list of arguments to Py-Watcher you must use the flag for each argument you want to pass.
+    To pass a list of arguments to Py-Test-Watch you must use the flag for each argument you want to pass.
     [blue]
     Example:
-        pytest-watcher test tests/ -p "-k test_something" -p "-m slow"
+        Py-Test-Watch test tests/ -p "-k test_something" -p "-m slow"
     [/blue]
     [blue]
     Example:
-        pytest-watcher test tests/ -p "-k test_something" -p "-m slow" -i "tests/test_something.py" -i "tests/test_something_else.py"
+        Py-Test-Watch test tests/ -p "-k test_something" -p "-m slow" -i "tests/test_something.py" -i "tests/test_something_else.py"
     [/blue]
     """  # noqa: E501
     config = Config(
