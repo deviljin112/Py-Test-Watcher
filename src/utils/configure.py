@@ -55,17 +55,17 @@ def load_config(path: str = "config.yaml"):
 
 def get_optional_fields(instance: Config):
     data = {}
-    for field in fields(instance):
+    for instance_field in fields(instance):
         if (
-            field.default is not MISSING and field.default is not None
-        ) or field.default_factory is not MISSING:
-            if field.default_factory is not MISSING:
-                if field.default_factory == list:
-                    data[field.name] = []
+            instance_field.default is not MISSING and instance_field.default is not None
+        ) or instance_field.default_factory is not MISSING:
+            if instance_field.default_factory is not MISSING:
+                if instance_field.default_factory == list:
+                    data[instance_field.name] = []
                 else:
-                    data[field.name] = field.default_factory
+                    data[instance_field.name] = instance_field.default_factory
             else:
-                data[field.name] = field.default
+                data[instance_field.name] = instance_field.default
     return data
 
 
@@ -87,7 +87,7 @@ def create(
     [underline magenta]Note:[/underline magenta] This command will overwrite any existing config file. Unless a different path is specified.
     [underline magenta]Note:[/underline magenta] If you use the configure command, you can use the -c flag when testing to include that config file for testing.
     [underline magenta]Note:[/underline magenta] If you are passing a list of values, enclose them in quotes and separate them with spaces. Example: [cyan]passthrough: "param1" "param2" "param3"[/cyan]
-    """
+    """  # noqa: E501
     print("Enter values for the config. Leave blank to ignore.")
 
     config = {}
@@ -129,7 +129,7 @@ def edit(
     [underline magenta]Note:[/underline magenta] This command will overwrite any existing config file.
     [underline magenta]Note:[/underline magenta] If you use the configure command, you can use the -c flag when testing to include that config file for testing.
     [underline magenta]Note:[/underline magenta] If you are passing a list of values, enclose them in quotes and separate them with spaces. Example: [cyan]passthrough: "param1" "param2" "param3"[/cyan]
-    """
+    """  # noqa: E501
     config = load_config(path)
 
     print("Enter new values for the config. Leave blank to keep the current value.")
