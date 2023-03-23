@@ -79,7 +79,7 @@ def create(
     ),
 ):
     """
-    Create a config file for Py-Test-Watch.
+    Create a config file for Pytest-File-Watcher.
 
     \b
     Use the [cyan]create[/cyan] command to create a config file that will be used for testing.
@@ -121,7 +121,7 @@ def edit(
     )
 ):
     """
-    Edit the config file for Py-Test-Watch.
+    Edit the config file for Pytest-File-Watcher.
 
     \b
     Use the [cyan]edit[/cyan] command to edit an existing config file that will be used for testing.
@@ -176,7 +176,7 @@ def show(
     )
 ):
     """
-    Show the config file for Py-Test-Watch.
+    Show the config file for Pytest-File-Watcher.
 
     \b
     Use the [cyan]show[/cyan] command to show the current config file that will be used for testing.
