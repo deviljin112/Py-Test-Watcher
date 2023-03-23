@@ -11,7 +11,7 @@ app.add_typer(configure, name="configure", help="Configure PyTest-Watcher")
 
 def version_callback(value: bool):
     if value:
-        typer.echo(f"Py-Watcher Version: {typer.style('0.2.0', fg='blue')}")
+        typer.echo(f"Py-Watcher Version: {typer.style('0.2.1', fg='blue')}")
         raise typer.Exit()
 
 
