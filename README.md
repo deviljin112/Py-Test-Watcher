@@ -1,4 +1,11 @@
-# Py Test Watch
+![tests](https://github.com/deviljin112/Pytest-File-Watcher/actions/workflows/python-app.yml/badge.svg)
+![publish](https://github.com/deviljin112/Pytest-File-Watcher/actions/workflows/python-publish.yml/badge.svg)
+![version)](https://img.shields.io/github/v/tag/deviljin112/Pytest-File-Watcher?label=Version)
+![license](https://img.shields.io/github/license/deviljin112/pytest-file-watcher?color=yellow)
+![downloads](https://img.shields.io/github/downloads/deviljin112/Pytest-File-Watcher/total)
+![issues](https://img.shields.io/github/issues-raw/deviljin112/pytest-file-watcher)
+
+# Pytest File Watcher
 
 Pytest-File-Watcher is a tool that watches your files and runs your pytest tests automatically when it detects changes.
 
