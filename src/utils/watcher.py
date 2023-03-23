@@ -15,30 +15,34 @@ def extract_file_name(file_path: str):
     return file_path.split("/")[-1]
 
 
-def change_cb(changes):
-    config = Config()
-    if config.autoClear:
-        if os.name == "nt":
-            os.system("cls")
-        else:
-            os.system("clear")
+def callback_wrapper(config):
+    def change_callback(changes):
+        if config.autoClear:
+            if os.name == "nt":
+                os.system("cls")
+            else:
+                os.system("clear")
 
-    for change in list(changes):
-        print(
-            f"File change detected: [bold red]{extract_file_name(change[1])}[/bold red]"
-        )
+        for change in list(changes):
+            print(
+                f"File change detected: [bold red]{extract_file_name(change[1])}[/bold red]"
+            )
+
+    return change_callback
 
 
-def watch_files():
-    config = Config()
+def watch_files(config: Config):
     target_path = os.getcwd() + "/" + config.path
 
     run_process(
         target_path,
         target=test_runner,
         target_type="function",
-        watch_filter=PythonFilter(),
-        callback=change_cb,
+        watch_filter=PythonFilter(
+            ignore_paths=config.ignore,
+            extra_extensions=config.extensions,
+        ),
+        callback=callback_wrapper(config),
         args=[config],
     )
 

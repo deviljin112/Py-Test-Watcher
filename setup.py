@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name="py-watcher",
-    version="0.1.0",
+    version="0.2.0",
     description="Py-Watcher is a CLI tool that watches for changes in your code and runs pytest on the changed files.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",

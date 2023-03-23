@@ -1,4 +1,9 @@
-from src.utils.watcher import extract_file_name, change_cb
+from src.utils.watcher import extract_file_name, callback_wrapper
+
+
+class MockConfig:
+    def __init__(self, autoClear: bool):
+        self.autoClear = autoClear
 
 
 def test_should_extract_file_name_from_path():
@@ -10,15 +15,21 @@ def test_should_extract_file_name_from_path_with_multiple_slashes():
 
 
 def test_should_print_changed_file(capfd):
+    change_callback = callback_wrapper(MockConfig(False))
+
     changes = [("modified", "test/test_file.py")]
-    change_cb(changes)
+    change_callback(changes)
+
     out, err = capfd.readouterr()
     assert out == "File change detected: test_file.py\n"
 
 
 def test_should_print_changed_files(capfd):
+    change_callback = callback_wrapper(MockConfig(False))
+
     changes = [("modified", "test/test_file.py"), ("modified", "test/test_file2.py")]
-    change_cb(changes)
+    change_callback(changes)
+
     out, err = capfd.readouterr()
     assert (
         out
