@@ -1,0 +1,11 @@
+verbose: true
+autoClear: true
+onPass: notify-send "PyTest Passed"
+onFail: notify-send "PyTest Failed"
+extensions:
+  - .pyc
+ignore:
+  - ./venv
+passthrough:
+  - --maxfail=2
+  - --tb=line

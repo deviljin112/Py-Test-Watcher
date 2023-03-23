@@ -50,28 +50,6 @@ You can also view the `--version` of the tool.
 pytest-w --version
 ```
 
-### Global Flags
-
-Py-Watcher supports the following global flags:
-
-- `--verbose` or `-v`: Enable verbose mode.
-- `--auto-clear` or `-a`: Automatically clear the terminal screen before each test run.
-- `--config` or `-c`: Use a custom config file.
-
-These flags need to be passed before the command.
-
-```bash
-pytest-w --verbose test
-```
-
-You can mix and max all the flags, and also write multiple flags in one (shorthanded)
-
-```bash
-pytest-w -va test
-```
-
-Which would apply the `--verbose` and `--auto-clear` flags.
-
 ### Test Watching
 
 I strongly recommend using the `config.yaml` file to configure Py-Watcher. You can use the `configure` command to generate a `config.yaml` (see [#Config](#config)) file in the root of your project or if you prefer writing it yourself see [#Config (Advanced)](#config-advanced) section. As mentioned before this is quite opinionated. I personally do not like to pass many flags and commands when testing. Especially when those flags don't change, but it can be problematic to navigate a long line of shell command to edit something. Hence **use the config**.
@@ -82,19 +60,61 @@ Anyway... The `test` command is the real reason you are here. It will watch your
 pytest-w test ./path/to/folder
 ```
 
-You can also add parameters which will be passed to pytest with `--pass` or `-p`. You can only pass one parameter per flag. However, you can pass the flag multiple times. **Important**: You need to pass the parameter in quotes as a string (makes everything easier).
+### Test Flags
+
+There are many flags supported by Py-Watcher. You can pass them when using the `test` command. These flags take priority over the `config.yaml` file if used.
+\
+The flags are quite self-explanatory. I will list them here for convenience.
+\
+Verbose: `-v` or `--verbose`. Used when you want to see the full pytest output.
+\
+**Note:** If you want a more verbose pytest output use the `-p` flag instead.
 
 ```bash
-pytest-w test ./path/to/folder --pass "--maxfail=2" -p "-m test_marker"
+pytest-w test ./path/to/folder -v
 ```
 
-Just to reiterate you can prepend global flags before the command.
+Auto Clear: `-a` or `--auto-clear`. Used when you want to clear the terminal after each test run.
 
 ```bash
-pytest-w -ca test ./path/to/folder --pass "--maxfail=2" -p "-m test_marker"
+pytest-w test ./path/to/folder -c
 ```
 
-In this case we will apply the `--config` flag to use our `config.yaml` file and the `--auto-clear` flag to Py-Watcher. But we also pass the extra parameters to pytest.
+Config: `-c` or `--config`. Used when you want to pass a custom config file.
+
+```bash
+pytest-w test ./path/to/folder -c "path/to/config.yaml"
+```
+
+Ignore: `-i` or `--ignore`. Used when you want to ignore certain folders.
+
+```bash
+pytest-w test ./path/to/folder -i "venv" -i "node_modules"
+```
+
+Extensions: `-e` or `--extensions`. Used when you want to watch for extra file extensions.
+
+```bash
+pytest-w test ./path/to/folder -e ".py" -e ".txt"
+```
+
+Passthrough: `-p` or `--passthrough`. Used when you want to pass extra flags to pytest.
+
+```bash
+pytest-w test ./path/to/folder -t "-k" -t "test_something"
+```
+
+On Pass: `--on-pass`. Used when you want to run a shell command when all tests pass.
+
+```bash
+pytest-w test ./path/to/folder -p "echo 'All tests passed'"
+```
+
+On Fail: `--on-fail`. Used when you want to run a shell command when a test fails.
+
+```bash
+pytest-w test ./path/to/folder -f "echo 'A test has failed'"
+```
 
 ### Config
 
@@ -116,23 +136,37 @@ And view the current configuration.
 pytest-w configure view
 ```
 
+All above commands accept the `--config` flag to specify a custom config file. The default is the current working path.
+
+```bash
+pytest-w configure create --config "path/to/config.yaml"
+```
+
 ### Config (Advanced)
 
 Py-Watcher can be configured using a `config.yaml` file in the root of your project. Example of currently supported options:
 
 ```yaml
-verbose: false
-autoClear: true
-onFail: shell-command
+verbose: bool
+autoClear: bool
 onPass: shell-command
+onFail: shell-command
+extensions:
+  - string-item
+ignore:
+  - string-item
 passthrough:
-  - "--maxfail=2"
-  - "--tb=line"
+  - string-item
+  - string-item
 ```
 
+See [example config](./example_config.yaml).
+\
 This will likely change in the future, and be expanded further. I will do my best to keep the documentation up-to-date.
 
-**Recommendation:** My daily driver is WSL2 within Windows 10. I have found myself running Py-Watcher in the background while doing other operations in another terminal tab and often forgetting to check the status of tests. I know that on linux you can use [notify-send](https://vaskovsky.net/notify-send/linux.html) to send notifications to your desktop. Well, on WSL you can use [wsl-notify-send](https://github.com/stuartleeks/wsl-notify-send) which essentially sends a notification to the Windows notification center. I have found this to be very useful and I highly recommend checking it out and using it in your own projects.
+### Recommendation
+
+My daily driver is WSL2 within Windows 10. I have found myself running Py-Watcher in the background while doing other operations in another terminal tab and often forgetting to check the status of tests. I know that on linux you can use [notify-send](https://vaskovsky.net/notify-send/linux.html) to send notifications to your desktop. Well, on WSL you can use [wsl-notify-send](https://github.com/stuartleeks/wsl-notify-send) which essentially sends a notification to the Windows notification center. I have found this to be very useful and I highly recommend checking it out and using it in your own projects.
 \
 I have added the following to my `config.yaml` file:
 

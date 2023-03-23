@@ -1,6 +1,5 @@
 import typer
 
-from dataclasses import dataclass
 from typing import List, Optional
 
 from src.utils.watcher import watch_files
@@ -10,39 +9,14 @@ app = typer.Typer(rich_markup_mode="rich", add_completion=False)
 app.add_typer(configure, name="configure", help="Configure PyTest-Watcher")
 
 
-@dataclass
-class State:
-    verbose: bool = False
-    useConfig: bool = False
-    autoClear: bool = False
-
-
 def version_callback(value: bool):
     if value:
-        typer.echo(f"Py-Watcher Version: {typer.style('0.1.0', fg='blue')}")
+        typer.echo(f"Py-Watcher Version: {typer.style('0.2.0', fg='blue')}")
         raise typer.Exit()
 
 
 @app.callback()
 def main(
-    verbose: bool = typer.Option(
-        False,
-        "-v",
-        "--verbose",
-        help="[red][GLOBAL][/red] Verbose testing mode",
-    ),
-    useConfig: bool = typer.Option(
-        False,
-        "-c",
-        "--config",
-        help="[red][GLOBAL][/red] Use config file for testing",
-    ),
-    autoClear: bool = typer.Option(
-        False,
-        "-a",
-        "--auto-clear",
-        help="[red][GLOBAL][/red] Automatically clear the terminal after each test",
-    ),
     version: bool = typer.Option(
         None,
         "--version",
@@ -57,24 +31,36 @@ def main(
     \b
     [underline magenta]Recommended:[/underline magenta] Use the configure command to create a config file that will be used for testing.
     [underline magenta]Note:[/underline magenta] If you use the configure command, you can use the -c flag to use the config file for testing.
-
-    \b
-    Any global option, [bold red]must[/bold red] be used before the command.
-
-    [blue]Example:
-        pytest-watcher -c test tests/[/blue]
-    """
-    State.verbose = verbose
-    State.useConfig = useConfig
-    State.autoClear = autoClear
+    """  # noqa: E501
     return
 
 
 @app.command()
 def test(
     path: str = typer.Argument(..., help="Path to a test folder"),
+    verbose: Optional[bool] = typer.Option(
+        None, "-v", "--verbose", help="Show verbose output."
+    ),
+    autoClear: Optional[bool] = typer.Option(
+        None, "-a", "--auto-clear", help="Clear the console after each test."
+    ),
+    config: Optional[str] = typer.Option(
+        None, "-c", "--config", help="Path to a config file."
+    ),
+    ignore: Optional[List[str]] = typer.Option(
+        None, "-i", "--ignore", help="Paths to ignore when watching for changes."
+    ),
+    extensions: Optional[List[str]] = typer.Option(
+        None, "-e", "--ext", help="Extra file extensions to watch."
+    ),
     passthrough: Optional[List[str]] = typer.Option(
         None, "-p", "--pass", help="Passes arguments to pytest."
+    ),
+    onPass: Optional[str] = typer.Option(
+        None, "--on-pass", help="Shell command to run on passed tests."
+    ),
+    onFail: Optional[str] = typer.Option(
+        None, "--on-fail", help="Shell command to run on failed tests."
     ),
 ):
     """
@@ -85,23 +71,34 @@ def test(
         pytest-watcher test tests/
     [/blue]
 
-    To pass arguments to pytests, use the -p flag.
-    [italic] Note: You must use the flag for each argument you want to pass. [/italic]
+    To pass a list of arguments to Py-Watcher you must use the flag for each argument you want to pass.
     [blue]
     Example:
         pytest-watcher test tests/ -p "-k test_something" -p "-m slow"
     [/blue]
-    """
-    Config(
+    [blue]
+    Example:
+        pytest-watcher test tests/ -p "-k test_something" -p "-m slow" -i "tests/test_something.py" -i "tests/test_something_else.py"
+    [/blue]
+    """  # noqa: E501
+    config = Config(
         path=path,
+        ignore=ignore,
+        onPass=onPass,
+        onFail=onFail,
+        config=config,
+        verbose=verbose,
+        autoClear=autoClear,
+        extensions=extensions,
         passthrough=passthrough,
-        verbose=State.verbose,
-        useConfig=State.useConfig,
-        autoClear=State.autoClear,
     )
 
-    watch_files()
+    watch_files(config)
 
 
 def cli():
     app()
+
+
+if __name__ == "__main__":
+    cli()
