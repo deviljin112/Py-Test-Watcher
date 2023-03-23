@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="pytest-file-watcher",
-    version="0.2.3",
+    version="0.2.4",
     description="Pytest-File-Watcher is a CLI tool that watches for changes in your code and runs pytest on the changed files.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
