@@ -1,6 +1,6 @@
 # Py Test Watch
 
-Py-Test-Watch is a tool that watches your files and runs your pytest tests automatically when it detects changes.
+Pytest-File-Watcher is a tool that watches your files and runs your pytest tests automatically when it detects changes.
 
 ## Why?
 
@@ -8,9 +8,9 @@ I was tired of running `pytest` manually every time I made a change to my code. 
 \
 While [pytest-watch](https://github.com/joeyespo/pytest-watch) is a great tool, it is simply not maintained anymore. It works for most things, but I wanted something simpler. I wanted to be able to create config files within my projects so I dont need to remember all the flags and commands I need to pass to pytest. That way I just need to run `pytest-w test` and it will do all the work for me.
 \
-Py-Test-Watch may not have all the features of pytest-watch (**yet**), but I plan to expand the functionality of this tool as needed.
+Pytest-File-Watcher may not have all the features of pytest-watch (**yet**), but I plan to expand the functionality of this tool as needed.
 \
-You will find that Py-Test-Watch is quite opinionated. It is designed to work with my workflow. If you have any suggestions, please feel free to open an issue or a pull request. I am always open to suggestions.
+You will find that Pytest-File-Watcher is quite opinionated. It is designed to work with my workflow. If you have any suggestions, please feel free to open an issue or a pull request. I am always open to suggestions.
 \
 I hope it helps someone else with managing a multi-project testing workflow.
 
@@ -21,7 +21,7 @@ This tool is still in development. It's not perfect by any means. It does what I
 ## Installation
 
 ```bash
-pip install Py-Test-Watch
+pip install Pytest-File-Watcher
 ```
 
 ## Usage
@@ -52,7 +52,7 @@ pytest-w --version
 
 ### Test Watching
 
-I strongly recommend using the `config.yaml` file to configure Py-Test-Watch. You can use the `configure` command to generate a `config.yaml` (see [#Config](#config)) file in the root of your project or if you prefer writing it yourself see [#Config (Advanced)](#config-advanced) section. As mentioned before this is quite opinionated. I personally do not like to pass many flags and commands when testing. Especially when those flags don't change, but it can be problematic to navigate a long line of shell command to edit something. Hence **use the config**.
+I strongly recommend using the `config.yaml` file to configure Pytest-File-Watcher. You can use the `configure` command to generate a `config.yaml` (see [#Config](#config)) file in the root of your project or if you prefer writing it yourself see [#Config (Advanced)](#config-advanced) section. As mentioned before this is quite opinionated. I personally do not like to pass many flags and commands when testing. Especially when those flags don't change, but it can be problematic to navigate a long line of shell command to edit something. Hence **use the config**.
 \
 Anyway... The `test` command is the real reason you are here. It will watch your files and run your tests automatically when it detects changes. You need to pass the path to the folder you want to watch. You can just pass `./` to watch all files in the current directory.
 
@@ -62,7 +62,7 @@ pytest-w test ./path/to/folder
 
 ### Test Flags
 
-There are many flags supported by Py-Test-Watch. You can pass them when using the `test` command. These flags take priority over the `config.yaml` file if used.
+There are many flags supported by Pytest-File-Watcher. You can pass them when using the `test` command. These flags take priority over the `config.yaml` file if used.
 \
 The flags are quite self-explanatory. I will list them here for convenience.
 \
@@ -144,7 +144,7 @@ pytest-w configure create --config "path/to/config.yaml"
 
 ### Config (Advanced)
 
-Py-Test-Watch can be configured using a `config.yaml` file in the root of your project. Example of currently supported options:
+Pytest-File-Watcher can be configured using a `config.yaml` file in the root of your project. Example of currently supported options:
 
 ```yaml
 verbose: bool
@@ -166,16 +166,16 @@ This will likely change in the future, and be expanded further. I will do my bes
 
 ### Recommendation
 
-My daily driver is WSL2 within Windows 10. I have found myself running Py-Test-Watch in the background while doing other operations in another terminal tab and often forgetting to check the status of tests. I know that on linux you can use [notify-send](https://vaskovsky.net/notify-send/linux.html) to send notifications to your desktop. Well, on WSL you can use [wsl-notify-send](https://github.com/stuartleeks/wsl-notify-send) which essentially sends a notification to the Windows notification center. I have found this to be very useful and I highly recommend checking it out and using it in your own projects.
+My daily driver is WSL2 within Windows 10. I have found myself running Pytest-File-Watcher in the background while doing other operations in another terminal tab and often forgetting to check the status of tests. I know that on linux you can use [notify-send](https://vaskovsky.net/notify-send/linux.html) to send notifications to your desktop. Well, on WSL you can use [wsl-notify-send](https://github.com/stuartleeks/wsl-notify-send) which essentially sends a notification to the Windows notification center. I have found this to be very useful and I highly recommend checking it out and using it in your own projects.
 \
 I have added the following to my `config.yaml` file:
 
 ```yaml
-onPass: wsl-notify-send.exe --category "Py-Test-Watch" "All tests passed"
-onFail: wsl-notify-send.exe --category "Py-Test-Watch" "A test has failed"
+onPass: wsl-notify-send.exe --category "Pytest-File-Watcher" "All tests passed"
+onFail: wsl-notify-send.exe --category "Pytest-File-Watcher" "A test has failed"
 ```
 
-Now I can forget about Py-Test-Watch and it will notify me when it is done running tests. Not sure how this will work on other platforms, but I am sure there is a similar tool for MacOS.
+Now I can forget about Pytest-File-Watcher and it will notify me when it is done running tests. Not sure how this will work on other platforms, but I am sure there is a similar tool for MacOS.
 
 ## Manual Build
 

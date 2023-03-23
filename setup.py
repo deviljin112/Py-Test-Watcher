@@ -1,9 +1,9 @@
 from setuptools import setup, find_packages
 
 setup(
-    name="py-test-watch",
-    version="0.2.1",
-    description="Py-Test-Watch is a CLI tool that watches for changes in your code and runs pytest on the changed files.",
+    name="pytest-file-watcher",
+    version="0.2.3",
+    description="Pytest-File-Watcher is a CLI tool that watches for changes in your code and runs pytest on the changed files.",
     long_description=open("README.md").read(),
     long_description_content_type="text/markdown",
     author="Deviljin112",
