@@ -1,0 +1,9 @@
+verbose: false
+autoClear: true
+onFail: notify-send "PyTest Failed"
+onPass: notify-send "PyTest Passed"
+passthrough:
+  - "--maxfail=2"
+  - "--tb=line"
+  - "--durations=10"
+  - "--durations-min=1.0"
