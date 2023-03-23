@@ -1,4 +1,4 @@
-from src.utils.watcher import extract_file_name, callback_wrapper
+from src.watcher import extract_file_name, callback_wrapper
 
 
 class MockConfig:
