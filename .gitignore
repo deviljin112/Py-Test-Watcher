@@ -1,4 +1,7 @@
 __pycache__
 .pytest_cache
 venv/
-py_watcher.egg-info/
+pytest_file_watcher.egg-info/
+.eggs/
+build/
+dist/

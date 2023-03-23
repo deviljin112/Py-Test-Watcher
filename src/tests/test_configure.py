@@ -1,7 +1,7 @@
 import yaml
 from typer.testing import CliRunner
 
-from src.utils.configure import app, Config, get_optional_fields, load_config
+from src.configure import app, Config, get_optional_fields, load_config
 
 
 runner = CliRunner()

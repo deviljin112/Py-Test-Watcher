@@ -2,8 +2,8 @@ import typer
 
 from typing import List, Optional
 
-from src.utils.watcher import watch_files
-from src.utils.configure import app as configure, Config
+from src.watcher import watch_files
+from src.configure import app as configure, Config
 
 app = typer.Typer(rich_markup_mode="rich", add_completion=False)
 app.add_typer(configure, name="configure", help="Configure Pytest-File-Watcher")

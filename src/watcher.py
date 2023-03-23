@@ -5,7 +5,7 @@ import subprocess
 from rich import print
 from watchfiles import run_process, PythonFilter
 
-from src.utils.configure import Config
+from src.configure import Config
 
 logger = logging.getLogger("watchfiles.main")
 logger.setLevel(logging.ERROR)
