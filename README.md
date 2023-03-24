@@ -61,6 +61,7 @@ pytest-w --version
 
 I strongly recommend using the `config.yaml` file to configure Pytest-File-Watcher. You can use the `configure` command to generate a `config.yaml` (see [#Config](#config)) file in the root of your project or if you prefer writing it yourself see [#Config (Advanced)](#config-advanced) section. As mentioned before this is quite opinionated. I personally do not like to pass many flags and commands when testing. Especially when those flags don't change, but it can be problematic to navigate a long line of shell command to edit something. Hence **use the config**.
 \
+\
 Anyway... The `test` command is the real reason you are here. It will watch your files and run your tests automatically when it detects changes. You need to pass the path to the folder you want to watch. You can just pass `./` to watch all files in the current directory.
 
 ```bash
@@ -73,6 +74,7 @@ There are many flags supported by Pytest-File-Watcher. You can pass them when us
 \
 The flags are quite self-explanatory. I will list them here for convenience.
 \
+\
 Verbose: `-v` or `--verbose`. Used when you want to see the full pytest output.
 \
 **Note:** If you want a more verbose pytest output use the `-p` flag instead.
@@ -84,7 +86,7 @@ pytest-w test ./path/to/folder -v
 Auto Clear: `-a` or `--auto-clear`. Used when you want to clear the terminal after each test run.
 
 ```bash
-pytest-w test ./path/to/folder -c
+pytest-w test ./path/to/folder -a
 ```
 
 Config: `-c` or `--config`. Used when you want to pass a custom config file.
@@ -108,19 +110,19 @@ pytest-w test ./path/to/folder -e ".py" -e ".txt"
 Passthrough: `-p` or `--passthrough`. Used when you want to pass extra flags to pytest.
 
 ```bash
-pytest-w test ./path/to/folder -t "-k" -t "test_something"
+pytest-w test ./path/to/folder -p "-k" -p "test_something"
 ```
 
 On Pass: `--on-pass`. Used when you want to run a shell command when all tests pass.
 
 ```bash
-pytest-w test ./path/to/folder -p "echo 'All tests passed'"
+pytest-w test ./path/to/folder --on-pass "echo 'All tests passed'"
 ```
 
 On Fail: `--on-fail`. Used when you want to run a shell command when a test fails.
 
 ```bash
-pytest-w test ./path/to/folder -f "echo 'A test has failed'"
+pytest-w test ./path/to/folder --on-fail "echo 'A test has failed'"
 ```
 
 ### Config
