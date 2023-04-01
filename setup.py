@@ -13,7 +13,7 @@ setup(
     packages=["src"],
     install_requires=[
         "PyYAML==6.0",
-        "watchfiles==0.18.1",
+        "watchfiles==0.19.0",
         "typer==0.7.0",
         "rich==12.6.0",
         "pytest",
