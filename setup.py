@@ -15,7 +15,7 @@ setup(
         "PyYAML==6.0",
         "watchfiles==0.18.1",
         "typer==0.7.0",
-        "rich==12.6.0",
+        "rich==13.3.5",
         "pytest",
     ],
     entry_points={"console_scripts": ["pytest-w=src.main:cli"]},
